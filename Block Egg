@@ -1,0 +1,44 @@
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+
+local BLOCKED_TOOL_NAME = "Protein Egg"
+
+local function neutralizeTool(tool)
+    for _, desc in ipairs(tool:GetDescendants()) do
+        if desc:IsA("Script") or desc:IsA("LocalScript") then
+            pcall(function()
+                desc.Disabled = true
+            end)
+        end
+        if desc:IsA("RemoteEvent") then
+            pcall(function()
+                desc.FireServer = function() end
+            end)
+        end
+    end
+end
+
+local function monitor(container)
+    for _, tool in ipairs(container:GetChildren()) do
+        if tool:IsA("Tool") and tool.Name == BLOCKED_TOOL_NAME then
+            neutralizeTool(tool)
+        end
+    end
+    container.ChildAdded:Connect(function(tool)
+        if tool:IsA("Tool") and tool.Name == BLOCKED_TOOL_NAME then
+            task.defer(function()
+                neutralizeTool(tool)
+            end)
+        end
+    end)
+end
+
+player.CharacterAdded:Connect(function(char)
+    monitor(player.Backpack)
+    monitor(char)
+end)
+
+if player.Character then
+    monitor(player.Backpack)
+    monitor(player.Character)
+end

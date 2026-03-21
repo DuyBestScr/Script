@@ -1,3 +1,11 @@
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+
+local displayName = player.DisplayName
+if not displayName or displayName == "" then
+    displayName = player.Name
+end
+
 local Player = Players.LocalPlayer
 local player = game.Players.LocalPlayer
 local VirtualInputManager = game:GetService("VirtualInputManager")

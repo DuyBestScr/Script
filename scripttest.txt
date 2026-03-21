@@ -285,7 +285,7 @@ task.spawn(function()
 
             equipPet(FarmPet)
             while isRunning and leaderstats.Strength.Value < need do
-                for _ = 1, 30 do
+                for _ = 1, 55 do
                     muscleEvent:FireServer("rep")
                 end
                 task.wait(0.01)

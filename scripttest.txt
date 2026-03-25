@@ -727,8 +727,8 @@ local LocalPlayer = Players.LocalPlayer
 
 local REPS_PER_CYCLE = 80
 local REP_DELAY = 0.01
-local MAX_PING = 750  
-local MIN_PING = 200
+local MAX_PING = 456
+local MIN_PING = 180
 
 local function getPing()
     local success, ping = pcall(function()
